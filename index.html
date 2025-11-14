@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sudoku Puzzle Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Background Animasi -->
+    <div class="mist-container">
+        <div class="mist mist1"></div>
+        <div class="mist mist2"></div>
+        <div class="mist mist3"></div>
+    </div>
+
+    <div class="bamboo-container">
+        <div class="bamboo bamboo1"></div>
+        <div class="bamboo bamboo2"></div>
+        <div class="bamboo bamboo3"></div>
+        <div class="bamboo bamboo4"></div>
+    </div>
+
+    <div class="lantern-container">
+        <div class="lantern lantern-left">
+            <div class="lantern-top"></div>
+            <div class="lantern-body">
+                <div class="lantern-light"></div>
+            </div>
+            <div class="lantern-bottom"></div>
+        </div>
+        <div class="lantern lantern-right">
+            <div class="lantern-top"></div>
+            <div class="lantern-body">
+                <div class="lantern-light"></div>
+            </div>
+            <div class="lantern-bottom"></div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <div class="game-container">
+        <!-- Mobile Header -->
+        <div class="mobile-header">
+            <button class="zen-btn menu-btn" id="menuToggle" type="button">☰</button>
+            <h1 class="zen-title">SUDOKU PUZZLE GAME</h1>
+            <div style="display: flex; gap: 8px;">
+                <button class="zen-btn theme-btn mobile-theme-btn" id="mobileThemeBtn" type="button">🌙</button>
+            </div>
+        </div>
+
+        <!-- Main Game Area -->
+        <div class="game-wrapper">
+            <!-- Left Sidebar -->
+            <aside class="sidebar left-sidebar" id="leftSidebar">
+                <div class="sidebar-header">
+                    <h3 class="sidebar-title">📚 MENU</h3>
+                    <button class="close-sidebar" id="closeSidebar" type="button">✕</button>
+                </div>
+
+                <div class="sidebar-content">
+                    <!-- Game Info -->
+                    <div class="zen-panel desktop-only">
+                        <h3 class="panel-title">📊 INFO PERMAINAN</h3>
+                        <div class="info-grid">
+                            <div class="info-box timer-box">
+                                <div class="info-icon">⏱️</div>
+                                <div class="info-details">
+                                    <div class="info-label">WAKTU</div>
+                                    <div class="info-value" id="timer">00:00</div>
+                                </div>
+                                <button class="zen-icon-btn" id="pauseBtn" type="button">⏸️</button>
+                            </div>
+                            <div class="info-box hints-box">
+                                <div class="info-icon">💡</div>
+                                <div class="info-details">
+                                    <div class="info-label">PETUNJUK</div>
+                                    <div class="info-value" id="hints">3</div>
+                                </div>
+                            </div>
+                            <div class="info-box errors-box">
+                                <div class="info-icon">❌</div>
+                                <div class="info-details">
+                                    <div class="info-label">KESALAHAN</div>
+                                    <div class="info-value" id="errors">0/3</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="zen-panel desktop-only">
+                        <h3 class="panel-title">⚡ AKSI</h3>
+                        <div class="action-grid">
+                            <button class="action-btn" id="eraserBtn" type="button">
+                                <span class="action-icon">🗑️</span>
+                                <span class="action-label">HAPUS</span>
+                            </button>
+                            <button class="action-btn" id="notesBtn" type="button">
+                                <span class="action-icon">✏️</span>
+                                <span class="action-label">NOTE</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Statistics Mobile -->
+                    <div class="zen-panel mobile-only">
+                        <h3 class="panel-title">📊 STATISTIK</h3>
+                        <div class="stats-list">
+                            <div class="stat-row">
+                                <span class="stat-label">DIMAINKAN</span>
+                                <span class="stat-value" id="gamesPlayedMobile">0</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">MENANG</span>
+                                <span class="stat-value" id="gamesWonMobile">0</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">BEST TIME</span>
+                                <span class="stat-value" id="bestTimeMobile">--:--</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">WIN RATE</span>
+                                <span class="stat-value" id="winRateMobile">0%</span>
+                            </div>
+                        </div>
+                        <button class="zen-btn danger-btn full-width" id="resetStatsBtnMobile">🔄 RESET
+                            STATISTIK</button>
+                    </div>
+
+                    <!-- Help Menu -->
+                    <div class="zen-panel help-panel">
+                        <h3 class="panel-title">📚 BANTUAN</h3>
+                        <div class="help-menu">
+                            <button class="help-btn" data-modal="howToPlay" type="button">
+                                <span>📖</span>
+                                <span>CARA BERMAIN</span>
+                            </button>
+                            <button class="help-btn" data-modal="aboutSudoku" type="button">
+                                <span>ℹ️</span>
+                                <span>TENTANG SUDOKU</span>
+                            </button>
+                            <button class="help-btn" data-modal="tips" type="button">
+                                <span>💡</span>
+                                <span>TIPS & TRIK</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Center Game Board -->
+            <main class="game-board">
+                <!-- Desktop Header -->
+                <div class="desktop-header">
+                    <h1 class="zen-title main-title">SUDOKU PUZZLE GAME</h1>
+                    <button class="zen-btn theme-btn" id="desktopThemeBtn">🌙</button>
+                </div>
+
+                <!-- Mobile Top Bar -->
+                <div class="mobile-top-bar">
+                    <div class="top-item">
+                        <div class="top-label">LEVEL</div>
+                        <select class="zen-select" id="mobileDifficultySelect">
+                            <option value="easy" selected>MUDAH</option>
+                            <option value="medium">SEDANG</option>
+                            <option value="hard">SULIT</option>
+                            <option value="expert">AHLI</option>
+                            <option value="master">MASTER</option>
+                            <option value="extreme">EKSTRIM</option>
+                        </select>
+                    </div>
+                    <div class="top-item">
+                        <div class="top-label">KESALAHAN</div>
+                        <div class="top-value error-value" id="errorsMobile">0/3</div>
+                    </div>
+                    <div class="top-item">
+                        <div class="top-label">WAKTU</div>
+                        <div class="top-value" id="timerMobile">00:00</div>
+                    </div>
+                    <button class="zen-icon-btn" id="mobilePauseBtn">⏸</button>
+                </div>
+
+                <!-- Difficulty Selector (Desktop) -->
+                <div class="difficulty-selector desktop-only">
+                    <button class="diff-btn active" data-difficulty="easy">
+                        <span class="diff-icon">🌱</span>
+                        <span>MUDAH</span>
+                    </button>
+                    <button class="diff-btn" data-difficulty="medium">
+                        <span class="diff-icon">🍃</span>
+                        <span>SEDANG</span>
+                    </button>
+                    <button class="diff-btn" data-difficulty="hard">
+                        <span class="diff-icon">🌲</span>
+                        <span>SULIT</span>
+                    </button>
+                    <button class="diff-btn" data-difficulty="expert">
+                        <span class="diff-icon">💧</span>
+                        <span>AHLI</span>
+                    </button>
+                    <button class="diff-btn" data-difficulty="master">
+                        <span class="diff-icon">✨</span>
+                        <span>MASTER</span>
+                    </button>
+                    <button class="diff-btn" data-difficulty="extreme">
+                        <span class="diff-icon">🔥</span>
+                        <span>EKSTREM</span>
+                    </button>
+                </div>
+
+                <!-- Sudoku Grid -->
+                <div class="sudoku-grid theme-easy" id="grid" role="grid"></div>
+
+                <!-- Mobile Controls -->
+                <div class="mobile-controls">
+                    <button class="control-btn" id="mobileResetBtn">
+                        <span>↺</span>
+                    </button>
+                    <button class="control-btn" id="mobileEraserBtn">
+                        <span>🗑️</span>
+                    </button>
+                    <button class="control-btn" id="mobileNotesBtn">
+                        <span>📝</span>
+                        <span class="badge" id="notesBadge">OFF</span>
+                    </button>
+                    <button class="control-btn" id="mobileHintBtn">
+                        <span>💡</span>
+                        <span class="badge hint-badge" id="hintBadgeMobile">3</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Number Pad -->
+                <div class="mobile-numpad">
+                    <button class="numpad-btn" data-number="1">1</button>
+                    <button class="numpad-btn" data-number="2">2</button>
+                    <button class="numpad-btn" data-number="3">3</button>
+                    <button class="numpad-btn" data-number="4">4</button>
+                    <button class="numpad-btn" data-number="5">5</button>
+                    <button class="numpad-btn" data-number="6">6</button>
+                    <button class="numpad-btn" data-number="7">7</button>
+                    <button class="numpad-btn" data-number="8">8</button>
+                    <button class="numpad-btn" data-number="9">9</button>
+                </div>
+
+                <!-- Desktop Controls -->
+                <div class="game-controls desktop-only">
+                    <button class="zen-btn primary-btn" id="desktopNewGame">🎮 PERMAINAN BARU</button>
+                    <button class="zen-btn warning-btn" id="desktopResetBtn">🔄 RESET</button>
+                    <button class="zen-btn success-btn" id="desktopHintBtn">💡 PETUNJUK</button>
+                </div>
+
+                <!-- Footer -->
+                <footer class="game-footer">
+                    <p>© 2211510397 - Pujo Eko Wahyudi</p>
+                    <p class="footer-small">UAS Final Project | Dibuat untuk Edukasi</p>
+                </footer>
+            </main>
+
+            <!-- Right Sidebar -->
+            <aside class="sidebar right-sidebar">
+                <!-- Number Pad -->
+                <div class="zen-panel">
+                    <h3 class="panel-title">🔢 PAPAN ANGKA</h3>
+                    <div class="numpad-grid">
+                        <button class="num-btn" data-number="1">1</button>
+                        <button class="num-btn" data-number="2">2</button>
+                        <button class="num-btn" data-number="3">3</button>
+                        <button class="num-btn" data-number="4">4</button>
+                        <button class="num-btn" data-number="5">5</button>
+                        <button class="num-btn" data-number="6">6</button>
+                        <button class="num-btn" data-number="7">7</button>
+                        <button class="num-btn" data-number="8">8</button>
+                        <button class="num-btn" data-number="9">9</button>
+                    </div>
+                </div>
+
+                <!-- Statistics -->
+                <div class="zen-panel">
+                    <h3 class="panel-title">📊 STATISTIK</h3>
+                    <div class="stats-list">
+                        <div class="stat-row">
+                            <span class="stat-label">DIMAINKAN</span>
+                            <span class="stat-value" id="gamesPlayed">0</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">MENANG</span>
+                            <span class="stat-value" id="gamesWon">0</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">BEST TIME</span>
+                            <span class="stat-value" id="bestTime">--:--</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">WIN RATE</span>
+                            <span class="stat-value" id="winRate">0%</span>
+                        </div>
+                    </div>
+                    <button class="zen-btn danger-btn full-width" id="resetStatsBtn">🔄 RESET STATISTIK</button>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Modals (keeping all modals from original) -->
+    <div class="modal" id="victoryModal">
+        <div class="modal-content zen-modal">
+            <h2 class="modal-title success">🎉 Selamat!</h2>
+            <p>Kamu sudah berhasil menyelesaikan puzzle, aku tahu kamu pasti bisa!</p>
+            <div class="modal-stats">
+                <p><strong>WAKTU:</strong> <span id="finalTime">00:00</span></p>
+                <p><strong>KESALAHAN:</strong> <span id="finalErrors">0</span></p>
+            </div>
+            <button class="zen-btn primary-btn" id="victoryCloseBtn">Mau main lagi?</button>
+        </div>
+    </div>
+
+    <div class="modal" id="gameOverModal">
+        <div class="modal-content zen-modal">
+            <h2 class="modal-title danger">💥 Game Over!</h2>
+            <p>Kamu telah membuat 3 kesalahan!</p>
+            <p class="modal-message">Jangan khawatir, istirahat dulu sejenak dan terus lah berlatih! 💪</p>
+            <div class="modal-stats">
+                <p><strong>WAKTU:</strong> <span id="gameOverTime">00:00</span></p>
+            </div>
+            <button class="zen-btn primary-btn" id="gameOverCloseBtn">Mau coba lagi?</button>
+        </div>
+    </div>
+
+    <!-- Other modals... (keeping all from original) -->
+    <div class="modal" id="howToPlayModal">
+        <div class="modal-content info-modal">
+            <button class="close-modal" data-close="howToPlay">✕</button>
+            <h2 class="modal-title">📖 CARA BERMAIN</h2>
+            <div class="modal-body">
+                <div class="instruction">
+                    <div class="inst-number">1</div>
+                    <div class="inst-text">
+                        <h4>Pilih Tingkat Kesulitan</h4>
+                        <p>Pilih level permainan dari Mudah, Sedang, Sulit, Ahli, Master, hingga Ekstrim. Semakin tinggi
+                            level, semakin sedikit angka yang diberikan di awal.</p>
+                    </div>
+                </div>
+                <div class="instruction">
+                    <div class="inst-number">2</div>
+                    <div class="inst-text">
+                        <h4>Pilih Sel Kosong</h4>
+                        <p>Klik atau ketuk sel kosong pada grid 9×9 untuk memilihnya. Sel yang dipilih akan ditandai
+                            dengan highlight khusus.</p>
+                    </div>
+                </div>
+                <div class="instruction">
+                    <div class="inst-number">3</div>
+                    <div class="inst-text">
+                        <h4>Masukkan Angka</h4>
+                        <p>Gunakan papan angka di samping kanan (desktop) atau di bawah grid (mobile), atau tekan angka
+                            1-9 pada keyboard untuk mengisi sel yang dipilih.</p>
+                    </div>
+                </div>
+                <div class="instruction">
+                    <div class="inst-number">4</div>
+                    <div class="inst-text">
+                        <h4>Pahami Aturan Sudoku</h4>
+                        <p>Setiap baris (horizontal), kolom (vertikal), dan kotak 3×3 harus berisi angka 1-9 tanpa ada
+                            angka yang berulang. Jika terjadi kesalahan, angka akan ditandai dengan warna merah.</p>
+                    </div>
+                </div>
+                <div class="instruction">
+                    <div class="inst-number">5</div>
+                    <div class="inst-text">
+                        <h4>Gunakan Fitur Bantuan</h4>
+                        <p><strong>Mode Catatan (✏️):</strong> Aktifkan untuk menulis beberapa angka kecil sebagai
+                            kemungkinan kandidat.<br>
+                            <strong>Hapus (🗑️):</strong> Menghapus angka dari sel yang dipilih.<br>
+                            <strong>Petunjuk (💡):</strong> Mendapat bantuan untuk mengisi satu sel dengan benar
+                            (terbatas 3 kali).
+                        </p>
+                    </div>
+                </div>
+                <div class="instruction">
+                    <div class="inst-number">6</div>
+                    <div class="inst-text">
+                        <h4>Perhatikan Kesalahan</h4>
+                        <p>Kamu hanya boleh membuat maksimal 3 kesalahan. Jika melebihi batas, permainan akan berakhir
+                            dan harus dimulai dari awal.</p>
+                    </div>
+                </div>
+                <div class="instruction">
+                    <div class="inst-number">7</div>
+                    <div class="inst-text">
+                        <h4>Selesaikan Puzzle</h4>
+                        <p>Isi semua sel kosong dengan benar sesuai aturan Sudoku. Setelah selesai, waktu dan win rate
+                            kamu akan tercatat dalam statistik.</p>
+                    </div>
+                </div>
+                <div class="instruction">
+                    <div class="inst-number">8</div>
+                    <div class="inst-text">
+                        <h4>Kontrol Permainan</h4>
+                        <p><strong>Pause (⏸️):</strong> Jeda permainan sementara.<br>
+                            <strong>Reset (🔄):</strong> Mulai ulang puzzle yang sama dari awal.<br>
+                            <strong>Permainan Baru (🎮):</strong> Membuat puzzle baru dengan kesulitan yang sama.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="aboutSudokuModal">
+        <div class="modal-content info-modal">
+            <button class="close-modal" data-close="aboutSudoku">✕</button>
+            <h2 class="modal-title">ℹ️ TENTANG SUDOKU</h2>
+            <div class="modal-body">
+                <h3>Apa itu Sudoku?</h3>
+                <p><strong>Sudoku</strong> adalah permainan puzzle logika berbasis angka yang populer di seluruh dunia.
+                    Tujuannya adalah mengisi grid 9×9 dengan angka 1-9 sehingga setiap baris, kolom, dan kotak 3×3
+                    berisi semua angka tanpa pengulangan.</p>
+
+                <h3>Sejarah Singkat</h3>
+                <p>Sudoku modern pertama kali dipopulerkan di Jepang pada tahun 1980-an oleh perusahaan penerbitan
+                    Nikoli. Nama "Sudoku" berasal dari bahasa Jepang <strong>"数独"</strong> (sūdoku) yang berarti "angka
+                    tunggal". Meskipun dipopulerkan di Jepang, konsep permainan ini sebenarnya berasal dari puzzle
+                    "Number Place" yang dikembangkan oleh Howard Garns, seorang arsitek Amerika pada tahun 1979.</p>
+
+                <p>Pada tahun 2004, Sudoku mulai menyebar ke seluruh dunia setelah dimuat dalam surat kabar The Times di
+                    London. Sejak itu, Sudoku menjadi fenomena global dan dimainkan oleh jutaan orang setiap hari di
+                    berbagai media, mulai dari koran, majalah, buku, hingga aplikasi digital.</p>
+
+                <h3>Tingkat Kesulitan</h3>
+                <p>Permainan Sudoku tersedia dalam berbagai tingkat kesulitan berdasarkan jumlah angka yang sudah terisi
+                    di awal:</p>
+                <ul>
+                    <li><strong>🌱 Mudah:</strong> 36-46 angka terisi di awal. Cocok untuk pemula yang baru belajar
+                        aturan dasar Sudoku.</li>
+                    <li><strong>🍃 Sedang:</strong> 32-35 angka terisi. Membutuhkan strategi pemikiran logis yang lebih
+                        matang.</li>
+                    <li><strong>🌲 Sulit:</strong> 28-31 angka terisi. Menantang dengan kombinasi teknik yang lebih
+                        kompleks.</li>
+                    <li><strong>💧 Ahli:</strong> 24-27 angka terisi. Memerlukan kemampuan analisis tingkat lanjut.</li>
+                    <li><strong>✨ Master:</strong> 22-23 angka terisi. Untuk pemain berpengalaman dengan strategi
+                        canggih.</li>
+                    <li><strong>🔥 Ekstrem:</strong> 17-21 angka terisi. Level tertinggi yang membutuhkan kesabaran dan
+                        keterampilan maksimal.</li>
+                </ul>
+
+                <h3>🎯 Manfaat Bermain Sudoku</h3>
+                <p>Bermain Sudoku bukan hanya hiburan, tetapi juga memberikan banyak manfaat untuk kesehatan mental dan
+                    kognitif:</p>
+
+                <div class="benefit-box">
+                    <h4>🧠 1. Meningkatkan Fungsi Kognitif</h4>
+                    <p>Bermain Sudoku secara rutin membantu melatih otak untuk berpikir logis, sistematis, dan
+                        meningkatkan kemampuan memecahkan masalah. Aktivitas mental ini menjaga otak tetap aktif, tajam,
+                        dan sehat.</p>
+                </div>
+
+                <div class="benefit-box">
+                    <h4>💭 2. Melatih Memori dan Konsentrasi</h4>
+                    <p>Sudoku mengharuskan kamu mengingat angka-angka yang sudah diisi, pola yang terbentuk, dan fokus
+                        pada detail. Ini secara efektif meningkatkan memori jangka pendek dan kemampuan berkonsentrasi
+                        dalam waktu lama.</p>
+                </div>
+
+                <div class="benefit-box">
+                    <h4>🎓 3. Mengasah Kemampuan Analitis</h4>
+                    <p>Permainan ini melatih kamu untuk menganalisis situasi secara menyeluruh, mengevaluasi berbagai
+                        pilihan yang tersedia, dan membuat keputusan berdasarkan logika murni. Keterampilan ini sangat
+                        berguna dalam kehidupan sehari-hari, pekerjaan, dan pengambilan keputusan penting.</p>
+                </div>
+
+                <div class="benefit-box">
+                    <h4>😌 4. Mengurangi Stres dan Kecemasan</h4>
+                    <p>Bermain Sudoku memberikan efek relaksasi dan meditasi karena mengalihkan fokus pikiran dari
+                        masalah atau kekhawatiran sehari-hari. Konsentrasi penuh pada puzzle membantu menenangkan
+                        pikiran dan mengurangi tingkat stres secara alami.</p>
+                </div>
+
+                <div class="benefit-box">
+                    <h4>⏱️ 5. Meningkatkan Manajemen Waktu</h4>
+                    <p>Menyelesaikan Sudoku, terutama dengan target waktu tertentu, melatih kamu untuk bekerja efisien,
+                        mengatur prioritas, dan membuat keputusan cepat tanpa mengorbankan akurasi. Skill ini dapat
+                        diterapkan dalam berbagai aspek kehidupan.</p>
+                </div>
+
+                <div class="benefit-box">
+                    <h4>🏆 6. Meningkatkan Rasa Percaya Diri</h4>
+                    <p>Setiap kali berhasil menyelesaikan puzzle, kamu mendapatkan kepuasan mental dan rasa pencapaian
+                        yang positif. Ini secara bertahap meningkatkan kepercayaan diri dan motivasi untuk menghadapi
+                        tantangan yang lebih besar, baik dalam permainan maupun kehidupan nyata.</p>
+                </div>
+
+                <div class="benefit-box">
+                    <h4>🛡️ 7. Mencegah Penurunan Kognitif</h4>
+                    <p>Penelitian ilmiah menunjukkan bahwa aktivitas mental seperti bermain Sudoku dapat membantu
+                        menunda atau bahkan mencegah penurunan kemampuan kognitif yang berkaitan dengan penuaan.
+                        Permainan ini juga dapat mengurangi risiko penyakit Alzheimer dan berbagai bentuk demensia.</p>
+                </div>
+
+                <div class="benefit-box">
+                    <h4>🎯 8. Melatih Kesabaran dan Ketekunan</h4>
+                    <p>Sudoku mengajarkan pentingnya kesabaran, ketekunan, dan tidak mudah menyerah dalam menghadapi
+                        tantangan. Tidak semua puzzle dapat diselesaikan dengan cepat, sehingga melatih mental untuk
+                        tetap fokus dan konsisten hingga mencapai tujuan.</p>
+                </div>
+
+                <div class="benefit-box">
+                    <h4>👥 9. Meningkatkan Kemampuan Sosial</h4>
+                    <p>Bermain Sudoku bersama teman atau keluarga dapat menjadi aktivitas sosial yang menyenangkan.
+                        Berbagi strategi, berdiskusi tentang teknik pemecahan, atau berkompetisi secara sehat dapat
+                        memperkuat hubungan interpersonal.</p>
+                </div>
+
+                <div class="benefit-box">
+                    <h4>💪 10. Melatih Disiplin Mental</h4>
+                    <p>Mengikuti aturan Sudoku yang ketat dan tidak menebak secara acak melatih disiplin mental. Kamu
+                        belajar untuk mengikuti prosedur logis, berpikir sistematis, dan menghindari jalan pintas yang
+                        tidak berdasar.</p>
+                </div>
+
+                <p
+                    style="margin-top: 20px; padding: 15px; background: rgba(100, 200, 100, 0.1); border-radius: 8px; border-left: 4px solid #4CAF50;">
+                    <strong>💡 Tip Kesehatan:</strong> Untuk mendapatkan manfaat maksimal, mainkan Sudoku secara rutin
+                    setidaknya 15-30 menit per hari. Kombinasikan dengan aktivitas fisik dan pola hidup sehat untuk
+                    hasil optimal bagi kesehatan otak dan mental kamu.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="tipsModal">
+        <div class="modal-content info-modal">
+            <button class="close-modal" data-close="tips">✕</button>
+            <h2 class="modal-title">💡 TIPS & TRIK</h2>
+            <div class="modal-body">
+                <p style="margin-bottom: 20px; font-style: italic; color: #666;">Pelajari teknik-teknik ini untuk
+                    meningkatkan kemampuan bermain Sudoku dan menyelesaikan puzzle dengan lebih cepat dan efisien.</p>
+
+                <div class="tip-box">
+                    <h4>🔍 1. Teknik Pemindaian (Scanning)</h4>
+                    <p>Pindai setiap baris, kolom, dan kotak 3×3 secara sistematis untuk menemukan angka yang pasti bisa
+                        diisi. Mulai dari angka yang paling sering muncul di grid. Fokus pada satu angka tertentu
+                        (misalnya angka 5) dan cari di mana angka tersebut bisa ditempatkan di setiap kotak 3×3.</p>
+                </div>
+
+                <div class="tip-box">
+                    <h4>✏️ 2. Gunakan Mode Catatan</h4>
+                    <p>Aktifkan Mode Catatan (pencil marks) untuk menulis angka-angka kecil sebagai kandidat kemungkinan
+                        di setiap sel kosong. Ini sangat membantu untuk melacak opsi yang tersedia dan menghindari
+                        kesalahan. Update catatan kamu setiap kali mengisi angka baru.</p>
+                </div>
+
+                <div class="tip-box">
+                    <h4>🎯 3. Mulai dari yang Mudah (Naked Singles)</h4>
+                    <p>Cari sel yang hanya memiliki satu kemungkinan angka saja (naked single). Isi sel-sel termudah ini
+                        terlebih dahulu karena akan membuka lebih banyak peluang dan membuat sel lainnya lebih mudah
+                        dipecahkan. Ini adalah fondasi strategi Sudoku.</p>
+                </div>
+
+                <div class="tip-box">
+                    <h4>🔢 4. Teknik Eliminasi</h4>
+                    <p>Untuk setiap sel kosong, identifikasi angka mana yang TIDAK mungkin berdasarkan aturan Sudoku.
+                        Coret semua angka yang sudah ada di baris, kolom, dan kotak 3×3 yang sama. Angka yang tersisa
+                        adalah kandidat valid. Semakin banyak eliminasi, semakin mudah menemukan jawaban.</p>
+                </div>
+
+                <div class="tip-box">
+                    <h4>📦 5. Fokus pada Kotak 3×3</h4>
+                    <p>Setiap kotak 3×3 harus berisi angka 1-9 lengkap. Identifikasi angka mana yang masih kurang di
+                        setiap kotak. Jika sebuah angka hanya bisa masuk di satu tempat dalam kotak tersebut, maka itu
+                        adalah jawaban pasti (hidden single).</p>
+                </div>
+
+                <div class="tip-box">
+                    <h4>🔄 6. Cross-Hatching</h4>
+                    <p>Gunakan teknik cross-hatching dengan membayangkan garis horizontal dan vertikal dari angka yang
+                        sudah ada. Ini membantu menentukan posisi angka yang sama di baris, kolom, atau kotak lain.
+                        Sangat efektif untuk level mudah hingga sedang.</p>
+                </div>
+
+                <div class="tip-box">
+                    <h4>👀 7. Cari Pola Hidden Pairs/Triples</h4>
+                    <p>Perhatikan jika ada 2-3 sel dalam satu baris, kolom, atau kotak yang hanya bisa diisi oleh 2-3
+                        angka yang sama. Ini disebut pairs atau triples. Angka-angka ini tidak bisa muncul di sel lain
+                        di area tersebut, membantu eliminasi lebih lanjut.</p>
+                </div>
+
+                <div class="tip-box">
+                    <h4>⚡ 8. Teknik Lanjutan (X-Wing, Swordfish)</h4>
+                    <p>Untuk puzzle sulit, pelajari teknik advanced seperti X-Wing (pola 4 sel membentuk persegi) dan
+                        Swordfish (pola 6 sel). Teknik ini mengidentifikasi pola kandidat yang memungkinkan eliminasi di
+                        area lain. Membutuhkan latihan tetapi sangat powerful.</p>
+                </div>
+
+                <div class="tip-box">
+                    <h4>⏸️ 9. Istirahat Sejenak</h4>
+                    <p>Jika merasa stuck atau bingung, jangan memaksakan diri. Gunakan tombol Pause dan ambil istirahat
+                        5-10 menit. Kembali dengan pikiran segar sering kali membantu kamu melihat solusi atau pola yang
+                        sebelumnya terlewat. Fresh perspective adalah kunci.</p>
+                </div>
+
+                <div class="tip-box">
+                    <h4>📝 10. Jangan Menebak!</h4>
+                    <p>Hindari mengisi angka secara acak atau menebak tanpa dasar logika. Sudoku adalah permainan logika
+                        murni yang SELALU memiliki solusi pasti tanpa perlu trial and error. Jika terpaksa menebak,
+                        tandai sel tersebut agar bisa di-backtrack jika terjadi kontradiksi.</p>
+                </div>
+
+                <div class="tip-box">
+                    <h4>🎮 11. Manfaatkan Fitur Bantuan</h4>
+                    <p>Gunakan fitur <strong>Petunjuk (💡)</strong> dengan bijak ketika benar-benar stuck. Jangan
+                        terlalu bergantung pada petunjuk, tetapi gunakan sebagai pembelajaran untuk memahami pola atau
+                        teknik yang kamu lewatkan. Setiap petunjuk adalah kesempatan belajar.</p>
+                </div>
+
+                <div class="tip-box">
+                    <h4>💪 12. Berlatih Secara Konsisten</h4>
+                    <p>Semakin sering bermain, semakin cepat kamu mengenali pola, strategi, dan teknik efektif. Mulai
+                        dari level Mudah untuk membangun fondasi, kemudian tingkatkan ke level yang lebih sulit secara
+                        bertahap. Konsistensi adalah kunci untuk menjadi ahli Sudoku.</p>
+                </div>
+
+                <div class="tip-box">
+                    <h4>📊 13. Analisis Kesalahan</h4>
+                    <p>Setiap kali membuat kesalahan, luangkan waktu untuk memahami mengapa itu salah. Apakah karena
+                        terburu-buru? Tidak teliti? Atau belum memahami teknik tertentu? Belajar dari kesalahan adalah
+                        cara tercepat untuk improve.</p>
+                </div>
+
+                <div class="tip-box">
+                    <h4>🏃 14. Kecepatan vs Akurasi</h4>
+                    <p>Untuk pemula, prioritaskan akurasi daripada kecepatan. Setelah mahir, kamu bisa meningkatkan
+                        tempo permainan. Ingat: 3 kesalahan = game over, jadi lebih baik lambat tapi benar daripada
+                        cepat tapi salah.</p>
+                </div>
+
+                <div class="tip-box">
+                    <h4>🎯 15. Tetapkan Target Personal</h4>
+                    <p>Catat waktu terbaik kamu untuk setiap level dan coba untuk memecahkan rekor pribadi. Ini membuat
+                        permainan lebih menantang dan meningkatkan motivasi. Track progress kamu melalui fitur Statistik
+                        yang tersedia.</p>
+                </div>
+
+                <p
+                    style="margin-top: 20px; padding: 15px; background: rgba(33, 150, 243, 0.1); border-radius: 8px; border-left: 4px solid #2196F3;">
+                    <strong>🌟 Ingat:</strong> Tidak ada jalan pintas untuk menjadi ahli Sudoku. Kunci sukses adalah
+                    kombinasi antara pemahaman strategi, latihan konsisten, dan kesabaran. Nikmati prosesnya dan jangan
+                    terlalu fokus pada hasil. Selamat bermain! 🎮
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="pause-overlay" id="pauseOverlay">
+        <div class="pause-content">
+            <h2>⏸️ DIJEDA</h2>
+            <p>Permainan sedang dijeda</p>
+            <button class="zen-btn primary-btn" id="resumeBtn">▶️ LANJUTKAN</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
