@@ -1,7 +1,3 @@
-// ========================================
-// SUDOKU KEBUN BAMBU - JAVASCRIPT
-// ========================================
-
 // === GAME STATE ===
 let grid = [];
 let solution = [];

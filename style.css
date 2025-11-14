@@ -2025,3 +2025,10 @@ body.dark .modal-content p {
     .control-btn { font-size: 20px; }
     .bamboo { width: 20px; }
 }
+
+.tutorial-img {
+    width: 100%;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 2px solid var(--wood-brown);
+}

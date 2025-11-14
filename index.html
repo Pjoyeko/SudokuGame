@@ -337,77 +337,92 @@
             <button class="close-modal" data-close="howToPlay">✕</button>
             <h2 class="modal-title">📖 CARA BERMAIN</h2>
             <div class="modal-body">
+
+                <!-- STEP 1 -->
                 <div class="instruction">
                     <div class="inst-number">1</div>
                     <div class="inst-text">
-                        <h4>Pilih Tingkat Kesulitan</h4>
-                        <p>Pilih level permainan dari Mudah, Sedang, Sulit, Ahli, Master, hingga Ekstrim. Semakin tinggi
-                            level, semakin sedikit angka yang diberikan di awal.</p>
+                        <h4>Gunakan Angka 1–9</h4>
+                        <p>Sudoku adalah permainan pada papan 9×9 yang dibagi menjadi sembilan kotak 3×3.
+                            Tugasmu adalah mengisi setiap baris, kolom, dan kotak 3×3 dengan angka 1 sampai 9,
+                            tanpa ada angka yang berulang.</p>
+                        <p>Biasanya beberapa kotak sudah terisi di awal. Semakin banyak angka yang diberikan,
+                            semakin mudah soal Sudoku-nya.</p>
                     </div>
                 </div>
+
+                <!-- STEP 2 -->
                 <div class="instruction">
                     <div class="inst-number">2</div>
                     <div class="inst-text">
-                        <h4>Pilih Sel Kosong</h4>
-                        <p>Klik atau ketuk sel kosong pada grid 9×9 untuk memilihnya. Sel yang dipilih akan ditandai
-                            dengan highlight khusus.</p>
+                        <h4>Jangan Mengulang Angka</h4>
+                        <p>Lihat setiap baris, kolom, atau kotak 3×3 untuk mengetahui angka apa yang belum ada.
+                            Jika di kotak kiri atas hanya angka 5 dan 6 yang belum terisi, berarti hanya dua angka itu
+                            yang mungkin masuk di ruang kosong tersebut.</p>
+                        <p>Jika kamu belum bisa menentukan posisi angka mana yang tepat, tinggalkan dulu,
+                            lalu lanjutkan ke bagian lain yang lebih jelas.</p>
+                        <img src="rule no 2.jpg" class="tutorial-img">
                     </div>
                 </div>
+
+                <!-- STEP 3 -->
                 <div class="instruction">
                     <div class="inst-number">3</div>
                     <div class="inst-text">
-                        <h4>Masukkan Angka</h4>
-                        <p>Gunakan papan angka di samping kanan (desktop) atau di bawah grid (mobile), atau tekan angka
-                            1-9 pada keyboard untuk mengisi sel yang dipilih.</p>
+                        <h4>Jangan Menebak</h4>
+                        <p>Sudoku bukan permainan tebak–tebakan. Gunakan logika, pola, dan pengamatan.
+                            Jika kamu belum tahu angka sebuah kotak, pindah ke area lain dan kembali lagi nanti.
+                            Menebak hanya akan membuat kamu salah langkah.</p>
                     </div>
                 </div>
+
+                <!-- STEP 4 -->
                 <div class="instruction">
                     <div class="inst-number">4</div>
                     <div class="inst-text">
-                        <h4>Pahami Aturan Sudoku</h4>
-                        <p>Setiap baris (horizontal), kolom (vertikal), dan kotak 3×3 harus berisi angka 1-9 tanpa ada
-                            angka yang berulang. Jika terjadi kesalahan, angka akan ditandai dengan warna merah.</p>
+                        <h4>Gunakan Proses Eliminasi</h4>
+                        <p>Periksa angka apa saja yang hilang pada sebuah baris, kolom, atau kotak.
+                            Lalu lihat apakah angka tersebut sudah muncul di kotak 3×3 atau baris/kolom lain yang
+                            terkait.</p>
+
+                        <p><strong>Contoh:</strong><br>
+                            Jika kolom kiri (lingakaran biru) hanya kekurangan angka 1, 5, dan 6, dan angka 1 sudah ada di dua kotak
+                            lainnya,
+                            berarti hanya ada satu posisi tersisa untuk angka 1.</p>
+
+                        <p><strong>Inilah proses eliminasi:</strong></p>
+                        <ul>
+                            <li>Lihat angka yang hilang</li>
+                            <li>Periksa posisi yang mungkin</li>
+                            <li>Eliminasi posisi yang tidak bisa digunakan</li>
+                            <li>Masukkan angka yang pasti benar</li>
+                        </ul>
+
+                        <img src="rule no 4.jpg" class="tutorial-img">
                     </div>
                 </div>
+
+                <!-- STEP 5 -->
                 <div class="instruction">
                     <div class="inst-number">5</div>
                     <div class="inst-text">
-                        <h4>Gunakan Fitur Bantuan</h4>
-                        <p><strong>Mode Catatan (✏️):</strong> Aktifkan untuk menulis beberapa angka kecil sebagai
-                            kemungkinan kandidat.<br>
-                            <strong>Hapus (🗑️):</strong> Menghapus angka dari sel yang dipilih.<br>
-                            <strong>Petunjuk (💡):</strong> Mendapat bantuan untuk mengisi satu sel dengan benar
-                            (terbatas 3 kali).
-                        </p>
-                    </div>
-                </div>
-                <div class="instruction">
-                    <div class="inst-number">6</div>
-                    <div class="inst-text">
-                        <h4>Perhatikan Kesalahan</h4>
-                        <p>Kamu hanya boleh membuat maksimal 3 kesalahan. Jika melebihi batas, permainan akan berakhir
-                            dan harus dimulai dari awal.</p>
-                    </div>
-                </div>
-                <div class="instruction">
-                    <div class="inst-number">7</div>
-                    <div class="inst-text">
-                        <h4>Selesaikan Puzzle</h4>
-                        <p>Isi semua sel kosong dengan benar sesuai aturan Sudoku. Setelah selesai, waktu dan win rate
-                            kamu akan tercatat dalam statistik.</p>
-                    </div>
-                </div>
-                <div class="instruction">
-                    <div class="inst-number">8</div>
-                    <div class="inst-text">
-                        <h4>Kontrol Permainan</h4>
-                        <p><strong>Pause (⏸️):</strong> Jeda permainan sementara.<br>
-                            <strong>Reset (🔄):</strong> Mulai ulang puzzle yang sama dari awal.<br>
-                            <strong>Permainan Baru (🎮):</strong> Membuat puzzle baru dengan kesulitan yang sama.
-                        </p>
+                        <h4>Kesimpulan</h4>
+                        <p>Aturan Sudoku sangat sederhana:</p>
+                        <ul>
+                            <li>Gunakan angka 1–9</li>
+                            <li>Tidak boleh ada angka yang sama di baris, kolom, atau kotak 3×3</li>
+                            <li>Isi kotak dengan logika, bukan tebakan</li>
+                            <li>Gunakan proses eliminasi untuk menemukan angka yang tepat</li>
+                        </ul>
+                        <p>Dengan latihan, kamu akan makin cepat mengenali pola dan menyelesaikan puzzle yang lebih
+                            sulit.</p>
+                        <p class="source-note">Sumber: <a
+                                href="https://sudoku.com/how-to-play/sudoku-rules-for-complete-beginners/"
+                                target="_blank" rel="noopener">Sudoku.com – Rules for Complete Beginners</a></p>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <div class="modal" id="aboutSudokuModal">
