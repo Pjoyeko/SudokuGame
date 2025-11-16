@@ -4,39 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Sudoku Puzzle Game</title>
+    <title>Sudoku Nusantara - Permainan Puzzle Budaya Indonesia</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-    <!-- Background Animasi -->
-    <div class="mist-container">
-        <div class="mist mist1"></div>
-        <div class="mist mist2"></div>
-        <div class="mist mist3"></div>
+<body class="theme-jawa">
+    <!-- Background Animasi Batik -->
+    <div class="batik-container">
+        <div class="batik-pattern batik1"></div>
+        <div class="batik-pattern batik2"></div>
+        <div class="batik-pattern batik3"></div>
     </div>
 
-    <div class="bamboo-container">
-        <div class="bamboo bamboo1"></div>
-        <div class="bamboo bamboo2"></div>
-        <div class="bamboo bamboo3"></div>
-        <div class="bamboo bamboo4"></div>
+    <!-- Ornamen Budaya -->
+    <div class="ornament-container">
+        <div class="ornament ornament-left"></div>
+        <div class="ornament ornament-right"></div>
     </div>
 
+    <!-- Lentera Tradisional -->
     <div class="lantern-container">
-        <div class="lantern lantern-left">
+        <div class="traditional-lantern lantern-left">
             <div class="lantern-top"></div>
             <div class="lantern-body">
                 <div class="lantern-light"></div>
+                <div class="lantern-pattern"></div>
             </div>
-            <div class="lantern-bottom"></div>
+            <div class="lantern-tassel"></div>
         </div>
-        <div class="lantern lantern-right">
+        <div class="traditional-lantern lantern-right">
             <div class="lantern-top"></div>
             <div class="lantern-body">
                 <div class="lantern-light"></div>
+                <div class="lantern-pattern"></div>
             </div>
-            <div class="lantern-bottom"></div>
+            <div class="lantern-tassel"></div>
         </div>
     </div>
 
@@ -46,10 +48,10 @@
     <div class="game-container">
         <!-- Mobile Header -->
         <div class="mobile-header">
-            <button class="zen-btn menu-btn" id="menuToggle" type="button">☰</button>
-            <h1 class="zen-title">SUDOKU PUZZLE GAME</h1>
+            <button class="nusantara-btn menu-btn" id="menuToggle" type="button">☰</button>
+            <h1 class="nusantara-title">SUDOKU NUSANTARA</h1>
             <div style="display: flex; gap: 8px;">
-                <button class="zen-btn theme-btn mobile-theme-btn" id="mobileThemeBtn" type="button">🌙</button>
+                <button class="nusantara-btn theme-btn mobile-theme-btn" id="mobileThemeBtn" type="button">🌙</button>
             </div>
         </div>
 
@@ -64,7 +66,7 @@
 
                 <div class="sidebar-content">
                     <!-- Game Info -->
-                    <div class="zen-panel desktop-only">
+                    <div class="nusantara-panel desktop-only">
                         <h3 class="panel-title">📊 INFO PERMAINAN</h3>
                         <div class="info-grid">
                             <div class="info-box timer-box">
@@ -73,7 +75,7 @@
                                     <div class="info-label">WAKTU</div>
                                     <div class="info-value" id="timer">00:00</div>
                                 </div>
-                                <button class="zen-icon-btn" id="pauseBtn" type="button">⏸️</button>
+                                <button class="nusantara-icon-btn" id="pauseBtn" type="button">⏸️</button>
                             </div>
                             <div class="info-box hints-box">
                                 <div class="info-icon">💡</div>
@@ -93,7 +95,7 @@
                     </div>
 
                     <!-- Quick Actions -->
-                    <div class="zen-panel desktop-only">
+                    <div class="nusantara-panel desktop-only">
                         <h3 class="panel-title">⚡ AKSI</h3>
                         <div class="action-grid">
                             <button class="action-btn" id="eraserBtn" type="button">
@@ -108,7 +110,7 @@
                     </div>
 
                     <!-- Statistics Mobile -->
-                    <div class="zen-panel mobile-only">
+                    <div class="nusantara-panel mobile-only">
                         <h3 class="panel-title">📊 STATISTIK</h3>
                         <div class="stats-list">
                             <div class="stat-row">
@@ -128,12 +130,12 @@
                                 <span class="stat-value" id="winRateMobile">0%</span>
                             </div>
                         </div>
-                        <button class="zen-btn danger-btn full-width" id="resetStatsBtnMobile">🔄 RESET
+                        <button class="nusantara-btn danger-btn full-width" id="resetStatsBtnMobile">🔄 RESET
                             STATISTIK</button>
                     </div>
 
                     <!-- Help Menu -->
-                    <div class="zen-panel help-panel">
+                    <div class="nusantara-panel help-panel">
                         <h3 class="panel-title">📚 BANTUAN</h3>
                         <div class="help-menu">
                             <button class="help-btn" data-modal="howToPlay" type="button">
@@ -148,6 +150,10 @@
                                 <span>💡</span>
                                 <span>TIPS & TRIK</span>
                             </button>
+                            <button class="help-btn" data-modal="nusantara" type="button">
+                                <span>🇮🇩</span>
+                                <span>BUDAYA NUSANTARA</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -157,21 +163,30 @@
             <main class="game-board">
                 <!-- Desktop Header -->
                 <div class="desktop-header">
-                    <h1 class="zen-title main-title">SUDOKU PUZZLE GAME</h1>
-                    <button class="zen-btn theme-btn" id="desktopThemeBtn">🌙</button>
+                    <h1 class="nusantara-title main-title">SUDOKU NUSANTARA</h1>
+                    <button class="nusantara-btn theme-btn" id="desktopThemeBtn">🌙</button>
+                </div>
+
+                <!-- Culture Info Banner -->
+                <div class="culture-banner" id="cultureBanner">
+                    <div class="culture-icon" id="cultureIcon">🏛️</div>
+                    <div class="culture-info">
+                        <div class="culture-name" id="cultureName">Jawa</div>
+                        <div class="culture-desc" id="cultureDesc">Tanah Kelahiran Batik dan Wayang</div>
+                    </div>
                 </div>
 
                 <!-- Mobile Top Bar -->
                 <div class="mobile-top-bar">
                     <div class="top-item">
                         <div class="top-label">LEVEL</div>
-                        <select class="zen-select" id="mobileDifficultySelect">
-                            <option value="easy" selected>MUDAH</option>
-                            <option value="medium">SEDANG</option>
-                            <option value="hard">SULIT</option>
-                            <option value="expert">AHLI</option>
-                            <option value="master">MASTER</option>
-                            <option value="extreme">EKSTRIM</option>
+                        <select class="nusantara-select" id="mobileDifficultySelect">
+                            <option value="jawa" selected>JAWA</option>
+                            <option value="bali">BALI</option>
+                            <option value="betawi">BETAWI</option>
+                            <option value="minang">MINANG</option>
+                            <option value="toraja">TORAJA</option>
+                            <option value="papua">PAPUA</option>
                         </select>
                     </div>
                     <div class="top-item">
@@ -182,39 +197,45 @@
                         <div class="top-label">WAKTU</div>
                         <div class="top-value" id="timerMobile">00:00</div>
                     </div>
-                    <button class="zen-icon-btn" id="mobilePauseBtn">⏸</button>
+                    <button class="nusantara-icon-btn" id="mobilePauseBtn">⏸</button>
                 </div>
 
                 <!-- Difficulty Selector (Desktop) -->
                 <div class="difficulty-selector desktop-only">
-                    <button class="diff-btn active" data-difficulty="easy">
-                        <span class="diff-icon">🌱</span>
-                        <span>MUDAH</span>
+                    <button class="diff-btn active" data-difficulty="jawa">
+                        <span class="diff-icon">🏛️</span>
+                        <span>JAWA</span>
+                        <span class="diff-subtitle">Mudah</span>
                     </button>
-                    <button class="diff-btn" data-difficulty="medium">
-                        <span class="diff-icon">🍃</span>
-                        <span>SEDANG</span>
+                    <button class="diff-btn" data-difficulty="bali">
+                        <span class="diff-icon">🕉️</span>
+                        <span>BALI</span>
+                        <span class="diff-subtitle">Sedang</span>
                     </button>
-                    <button class="diff-btn" data-difficulty="hard">
-                        <span class="diff-icon">🌲</span>
-                        <span>SULIT</span>
+                    <button class="diff-btn" data-difficulty="betawi">
+                        <span class="diff-icon">🎭</span>
+                        <span>BETAWI</span>
+                        <span class="diff-subtitle">Sulit</span>
                     </button>
-                    <button class="diff-btn" data-difficulty="expert">
-                        <span class="diff-icon">💧</span>
-                        <span>AHLI</span>
+                    <button class="diff-btn" data-difficulty="minang">
+                        <span class="diff-icon">🏔️</span>
+                        <span>MINANG</span>
+                        <span class="diff-subtitle">Ahli</span>
                     </button>
-                    <button class="diff-btn" data-difficulty="master">
-                        <span class="diff-icon">✨</span>
-                        <span>MASTER</span>
+                    <button class="diff-btn" data-difficulty="toraja">
+                        <span class="diff-icon">🏠</span>
+                        <span>TORAJA</span>
+                        <span class="diff-subtitle">Master</span>
                     </button>
-                    <button class="diff-btn" data-difficulty="extreme">
-                        <span class="diff-icon">🔥</span>
-                        <span>EKSTREM</span>
+                    <button class="diff-btn" data-difficulty="papua">
+                        <span class="diff-icon">🦜</span>
+                        <span>PAPUA</span>
+                        <span class="diff-subtitle">Ekstrem</span>
                     </button>
                 </div>
 
                 <!-- Sudoku Grid -->
-                <div class="sudoku-grid theme-easy" id="grid" role="grid"></div>
+                <div class="sudoku-grid grid-jawa" id="grid" role="grid"></div>
 
                 <!-- Mobile Controls -->
                 <div class="mobile-controls">
@@ -249,22 +270,22 @@
 
                 <!-- Desktop Controls -->
                 <div class="game-controls desktop-only">
-                    <button class="zen-btn primary-btn" id="desktopNewGame">🎮 PERMAINAN BARU</button>
-                    <button class="zen-btn warning-btn" id="desktopResetBtn">🔄 RESET</button>
-                    <button class="zen-btn success-btn" id="desktopHintBtn">💡 PETUNJUK</button>
+                    <button class="nusantara-btn primary-btn" id="desktopNewGame">🎮 PERMAINAN BARU</button>
+                    <button class="nusantara-btn warning-btn" id="desktopResetBtn">🔄 RESET</button>
+                    <button class="nusantara-btn success-btn" id="desktopHintBtn">💡 PETUNJUK</button>
                 </div>
 
                 <!-- Footer -->
                 <footer class="game-footer">
                     <p>© 2211510397 - Pujo Eko Wahyudi</p>
-                    <p class="footer-small">UAS Final Project | Dibuat untuk Edukasi</p>
+                    <p class="footer-small">UAS Final Project | Sudoku Nusantara - Permainan Budaya Indonesia</p>
                 </footer>
             </main>
 
             <!-- Right Sidebar -->
             <aside class="sidebar right-sidebar">
                 <!-- Number Pad -->
-                <div class="zen-panel">
+                <div class="nusantara-panel">
                     <h3 class="panel-title">🔢 PAPAN ANGKA</h3>
                     <div class="numpad-grid">
                         <button class="num-btn" data-number="1">1</button>
@@ -280,7 +301,7 @@
                 </div>
 
                 <!-- Statistics -->
-                <div class="zen-panel">
+                <div class="nusantara-panel">
                     <h3 class="panel-title">📊 STATISTIK</h3>
                     <div class="stats-list">
                         <div class="stat-row">
@@ -300,38 +321,126 @@
                             <span class="stat-value" id="winRate">0%</span>
                         </div>
                     </div>
-                    <button class="zen-btn danger-btn full-width" id="resetStatsBtn">🔄 RESET STATISTIK</button>
+                    <button class="nusantara-btn danger-btn full-width" id="resetStatsBtn">🔄 RESET STATISTIK</button>
                 </div>
             </aside>
         </div>
     </div>
 
-    <!-- Modals (keeping all modals from original) -->
+    <!-- Modals -->
     <div class="modal" id="victoryModal">
-        <div class="modal-content zen-modal">
+        <div class="modal-content nusantara-modal">
             <h2 class="modal-title success">🎉 Selamat!</h2>
             <p>Kamu sudah berhasil menyelesaikan puzzle, aku tahu kamu pasti bisa!</p>
             <div class="modal-stats">
                 <p><strong>WAKTU:</strong> <span id="finalTime">00:00</span></p>
                 <p><strong>KESALAHAN:</strong> <span id="finalErrors">0</span></p>
             </div>
-            <button class="zen-btn primary-btn" id="victoryCloseBtn">Mau main lagi?</button>
+            <button class="nusantara-btn primary-btn" id="victoryCloseBtn">Mau main lagi?</button>
         </div>
     </div>
 
     <div class="modal" id="gameOverModal">
-        <div class="modal-content zen-modal">
+        <div class="modal-content nusantara-modal">
             <h2 class="modal-title danger">💥 Game Over!</h2>
             <p>Kamu telah membuat 3 kesalahan!</p>
             <p class="modal-message">Jangan khawatir, istirahat dulu sejenak dan terus lah berlatih! 💪</p>
             <div class="modal-stats">
                 <p><strong>WAKTU:</strong> <span id="gameOverTime">00:00</span></p>
             </div>
-            <button class="zen-btn primary-btn" id="gameOverCloseBtn">Mau coba lagi?</button>
+            <button class="nusantara-btn primary-btn" id="gameOverCloseBtn">Mau coba lagi?</button>
         </div>
     </div>
 
-    <!-- Other modals... (keeping all from original) -->
+    <!-- Modal Budaya Nusantara -->
+    <div class="modal" id="nusantaraModal">
+        <div class="modal-content info-modal">
+            <button class="close-modal" data-close="nusantara">✕</button>
+            <h2 class="modal-title">🇮🇩 BUDAYA NUSANTARA</h2>
+            <div class="modal-body">
+                <p style="margin-bottom: 20px; font-style: italic;">Setiap level dalam Sudoku Nusantara
+                    merepresentasikan keunikan budaya dari berbagai suku di Indonesia.</p>
+
+                <div class="culture-detail">
+                    <h3>🏛️ JAWA (Level Mudah)</h3>
+                    <p><strong>Provinsi:</strong> Jawa Tengah, Jawa Timur, Jawa Barat, DI Yogyakarta</p>
+                    <p><strong>Warisan Budaya:</strong> Batik, Wayang Kulit, Gamelan, Candi Borobudur & Prambanan</p>
+                    <p><strong>Filosofi:</strong> "Alon-alon asal kelakon" - Pelan-pelan asal sampai tujuan</p>
+                    <p>Suku Jawa terkenal dengan kesopanan, filosofi hidup yang dalam, dan seni batik yang diakui UNESCO
+                        sebagai warisan budaya dunia.</p>
+                </div>
+
+                <div class="culture-detail">
+                    <h3>🕉️ BALI (Level Sedang)</h3>
+                    <p><strong>Provinsi:</strong> Bali</p>
+                    <p><strong>Warisan Budaya:</strong> Tari Kecak, Pura, Upacara Ngaben, Subak, Patung Garuda Wisnu
+                        Kencana</p>
+                    <p><strong>Filosofi:</strong> "Tri Hita Karana" - Tiga penyebab kebahagiaan (harmoni dengan Tuhan,
+                        sesama, dan alam)</p>
+                    <p>Bali dikenal sebagai Pulau Dewata dengan keindahan alamnya, arsitektur pura yang megah, dan
+                        tradisi Hindu yang kuat.</p>
+                </div>
+
+                <div class="culture-detail">
+                    <h3>🎭 BETAWI (Level Sulit)</h3>
+                    <p><strong>Provinsi:</strong> DKI Jakarta</p>
+                    <p><strong>Warisan Budaya:</strong> Ondel-Ondel, Tari Yapong, Kerak Telor, Soto Betawi, Rumah Kebaya
+                    </p>
+                    <p><strong>Filosofi:</strong> "Jangan asal ngomong" - Berpikir sebelum berbicara, menghargai
+                        kebijaksanaan</p>
+                    <p>Suku Betawi adalah penduduk asli Jakarta yang terkenal dengan keramahan, budaya toleransi yang
+                        tinggi, dan kuliner khas seperti Kerak Telor dan Soto Betawi. Ondel-ondel menjadi ikon budaya
+                        yang melambangkan penjaga kampung.</p>
+                </div>
+
+                <div class="culture-detail">
+                    <h3>🏔️ MINANGKABAU (Level Ahli)</h3>
+                    <p><strong>Provinsi:</strong> Sumatera Barat</p>
+                    <p><strong>Warisan Budaya:</strong> Rumah Gadang, Rendang, Tari Piring, Randai, Istana Pagaruyung
+                    </p>
+                    <p><strong>Filosofi:</strong> "Adat Basandi Syarak, Syarak Basandi Kitabullah" - Adat bersendi
+                        agama, agama bersendi Al-Quran</p>
+                    <p>Minangkabau terkenal dengan sistem matrilineal (garis keturunan ibu), kuliner rendang, dan
+                        arsitektur Rumah Gadang yang unik.</p>
+                </div>
+
+                <div class="culture-detail">
+                    <h3>🏠 TORAJA (Level Master)</h3>
+                    <p><strong>Provinsi:</strong> Sulawesi Selatan</p>
+                    <p><strong>Warisan Budaya:</strong> Tongkonan (Rumah Adat), Upacara Rambu Solo', Patung Tau-Tau,
+                        Lumbung Padi</p>
+                    <p><strong>Filosofi:</strong> Menghormati leluhur dan alam, ritual kematian sebagai perayaan
+                        kehidupan</p>
+                    <p>Toraja memiliki tradisi pemakaman yang unik (Rambu Solo'), arsitektur Tongkonan yang megah, dan
+                        keindahan alam pegunungan yang memukau.</p>
+                </div>
+
+                <div class="culture-detail">
+                    <h3>🦜 PAPUA (Level Ekstrem)</h3>
+                    <p><strong>Provinsi:</strong> Papua, Papua Barat, Papua Selatan, Papua Tengah, Papua Pegunungan,
+                        Papua Barat Daya</p>
+                    <p><strong>Warisan Budaya:</strong> Honai (Rumah Adat), Tari Perang, Noken (Tas Tradisional),
+                        Koteka, Ukiran Asmat</p>
+                    <p><strong>Filosofi:</strong> Hidup harmonis dengan hutan dan gunung sebagai ibu bumi</p>
+                    <p>Papua adalah tanah dengan keanekaragaman hayati tertinggi di Indonesia, budaya suku yang masih
+                        sangat kental, dan kerajinan Noken yang diakui UNESCO.</p>
+                </div>
+
+                <div
+                    style="margin-top: 30px; padding: 20px; background: linear-gradient(135deg, #FF4444 0%, #FFFFFF 25%, #FFFFFF 75%, #FF4444 100%); border-radius: 12px; border: 3px solid #8B4513;">
+                    <h3 style="text-align: center; color: #8B4513; margin-bottom: 10px;">🇮🇩 BHINNEKA TUNGGAL IKA 🇮🇩
+                    </h3>
+                    <p style="text-align: center; font-weight: bold; color: #2D3748;">"Berbeda-beda tetapi tetap satu"
+                    </p>
+                    <p style="text-align: center; margin-top: 10px; font-size: 11px;">Indonesia memiliki lebih dari
+                        1.300 suku bangsa dengan budaya, bahasa, dan tradisi yang unik. Mari kita lestarikan keberagaman
+                        ini sebagai kekayaan bangsa! 🌺</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal lainnya dari kode asli... -->
     <div class="modal" id="howToPlayModal">
         <div class="modal-content info-modal">
             <button class="close-modal" data-close="howToPlay">✕</button>
@@ -386,7 +495,8 @@
                             terkait.</p>
 
                         <p><strong>Contoh:</strong><br>
-                            Jika kolom kiri (lingakaran biru) hanya kekurangan angka 1, 5, dan 6, dan angka 1 sudah ada di dua kotak
+                            Jika kolom kiri (lingakaran biru) hanya kekurangan angka 1, 5, dan 6, dan angka 1 sudah ada
+                            di dua kotak
                             lainnya,
                             berarti hanya ada satu posisi tersisa untuk angka 1.</p>
 
@@ -425,6 +535,7 @@
 
         </div>
     </div>
+
     <div class="modal" id="aboutSudokuModal">
         <div class="modal-content info-modal">
             <button class="close-modal" data-close="aboutSudoku">✕</button>
@@ -673,7 +784,7 @@
         <div class="pause-content">
             <h2>⏸️ DIJEDA</h2>
             <p>Permainan sedang dijeda</p>
-            <button class="zen-btn primary-btn" id="resumeBtn">▶️ LANJUTKAN</button>
+            <button class="nusantara-btn primary-btn" id="resumeBtn">▶️ LANJUTKAN</button>
         </div>
     </div>
 

@@ -1,8 +1,13 @@
+// ================================================
+// SUDOKU NUSANTARA - JAVASCRIPT
+// Game Sudoku dengan Tema Budaya Indonesia
+// ================================================
+
 // === GAME STATE ===
 let grid = [];
 let solution = [];
 let selectedCell = null;
-let difficulty = 'easy';
+let difficulty = 'jawa';
 let mode = 'normal';
 let timer = 0;
 let timerInterval = null;
@@ -19,37 +24,80 @@ let stats = {
     bestTime: null
 };
 
-// === DIFFICULTY SETTINGS ===
+// === DIFFICULTY SETTINGS (mapping ke tema suku) ===
 const difficultySettings = {
-    easy: 41,
-    medium: 51,
-    hard: 61,
-    expert: 65,
-    master: 68,
-    extreme: 70
+    jawa: 41,      // Mudah
+    bali: 51,      // Sedang
+    betawi: 61,    // Sulit
+    minang: 65,    // Ahli
+    toraja: 68,    // Master
+    papua: 70      // Ekstrem
 };
 
-// === THEME BACKGROUND CHANGER ===
-const updateBackgroundTheme = (level) => {
-    // Remove all difficulty classes
-    document.body.classList.remove(
-        'difficulty-easy',
-        'difficulty-medium', 
-        'difficulty-hard',
-        'difficulty-expert',
-        'difficulty-master',
-        'difficulty-extreme'
-    );
+// === CULTURE DATA ===
+const cultureData = {
+    jawa: {
+        name: 'Jawa',
+        desc: 'Tanah Kelahiran Batik dan Wayang',
+        icon: '🏛️',
+        level: 'Mudah'
+    },
+    bali: {
+        name: 'Bali',
+        desc: 'Pulau Dewata dengan Seni Tari yang Indah',
+        icon: '🕉️',
+        level: 'Sedang'
+    },
+    betawi: {
+        name: 'Betawi',
+        desc: 'Ibu Kota dengan Ondel-Ondel dan Kerak Telor',
+        icon: '🎭',
+        level: 'Sulit'
+    },
+    minang: {
+        name: 'Minangkabau',
+        desc: 'Negeri Rumah Gadang dan Rendang',
+        icon: '🏔️',
+        level: 'Ahli'
+    },
+    toraja: {
+        name: 'Toraja',
+        desc: 'Tanah dengan Upacara Rambu Solo',
+        icon: '🏠',
+        level: 'Master'
+    },
+    papua: {
+        name: 'Papua',
+        desc: 'Surga Keanekaragaman Hayati Indonesia',
+        icon: '🦜',
+        level: 'Ekstrem'
+    }
+};
+
+// === THEME CHANGER ===
+const updateCultureTheme = (theme) => {
+    // Update body class
+    document.body.className = document.body.className
+        .replace(/theme-\w+/g, '')
+        .trim();
+    document.body.classList.add(`theme-${theme}`);
     
-    // Add new difficulty class
-    document.body.classList.add(`difficulty-${level}`);
-    
-    // Update grid theme
+    // Update grid class
     const gridEl = document.getElementById('grid');
     if (gridEl) {
         gridEl.className = 'sudoku-grid';
-        gridEl.classList.add(`theme-${level}`);
+        gridEl.classList.add(`grid-${theme}`);
     }
+    
+    // Update culture banner
+    const culture = cultureData[theme];
+    const cultureIconEl = document.getElementById('cultureIcon');
+    const cultureNameEl = document.getElementById('cultureName');
+    const cultureDescEl = document.getElementById('cultureDesc');
+    
+    if (cultureIconEl) cultureIconEl.textContent = culture.icon;
+    if (cultureNameEl) cultureNameEl.textContent = culture.name;
+    if (cultureDescEl) cultureDescEl.textContent = culture.desc;
 };
 
 // === MOBILE MENU ===
@@ -86,7 +134,7 @@ const closeMobileMenu = () => {
 // === STATISTICS ===
 const loadStats = () => {
     try {
-        const saved = localStorage.getItem('sudoku-bamboo-stats');
+        const saved = localStorage.getItem('sudoku-nusantara-stats');
         if (saved) {
             stats = JSON.parse(saved);
         }
@@ -98,7 +146,7 @@ const loadStats = () => {
 
 const saveStats = () => {
     try {
-        localStorage.setItem('sudoku-bamboo-stats', JSON.stringify(stats));
+        localStorage.setItem('sudoku-nusantara-stats', JSON.stringify(stats));
     } catch (e) {
         console.error('Error saving stats:', e);
     }
@@ -135,13 +183,13 @@ const updateStatsDisplay = () => {
 const resetStats = () => {
     if (confirm('⚠️ Reset semua statistik? Ini tidak bisa dibatalkan!')) {
         stats = { gamesPlayed: 0, gamesWon: 0, bestTime: null };
-        localStorage.removeItem('sudoku-bamboo-stats');
+        localStorage.removeItem('sudoku-nusantara-stats');
         saveStats();
         alert('✅ Statistik berhasil direset!');
     }
 };
 
-// === THEME ===
+// === THEME TOGGLE ===
 const toggleTheme = () => {
     document.body.classList.toggle('dark');
     const icon = document.body.classList.contains('dark') ? '☀️' : '🌙';
@@ -149,17 +197,14 @@ const toggleTheme = () => {
     document.querySelectorAll('.theme-btn').forEach(btn => {
         btn.textContent = icon;
     });
-    
-    // Update background theme to match current difficulty
-    updateBackgroundTheme(difficulty);
 };
 
-// === DIFFICULTY ===
+// === DIFFICULTY CHANGE ===
 const changeDifficulty = (level) => {
     difficulty = level;
     
-    // Update background theme
-    updateBackgroundTheme(level);
+    // Update theme
+    updateCultureTheme(level);
     
     // Update desktop buttons
     document.querySelectorAll('.diff-btn').forEach(btn => {
@@ -225,8 +270,6 @@ const showModal = (modalId) => {
         console.error('Modal not found:', modalId);
         return;
     }
-    
-    console.log('Showing modal:', modalId);
     
     // Pause game if needed
     if (!isPaused && timerInterval) {
@@ -426,7 +469,7 @@ const applyCompleteEffects = (row, col) => {
             cells[index].classList.add('complete-flash');
             setTimeout(() => {
                 cells[index].classList.remove('complete-flash');
-            }, 600);
+            }, 800);
         }
     }
     
@@ -436,7 +479,7 @@ const applyCompleteEffects = (row, col) => {
             cells[index].classList.add('complete-flash');
             setTimeout(() => {
                 cells[index].classList.remove('complete-flash');
-            }, 600);
+            }, 800);
         }
     }
     
@@ -450,7 +493,7 @@ const applyCompleteEffects = (row, col) => {
                 cells[index].classList.add('complete-flash');
                 setTimeout(() => {
                     cells[index].classList.remove('complete-flash');
-                }, 600);
+                }, 800);
             }
         }
     }
@@ -461,9 +504,9 @@ const renderGrid = () => {
     const gridEl = document.getElementById('grid');
     gridEl.innerHTML = '';
     
-    // Update grid theme based on difficulty
+    // Update grid theme
     gridEl.className = 'sudoku-grid';
-    gridEl.classList.add(`theme-${difficulty}`);
+    gridEl.classList.add(`grid-${difficulty}`);
 
     for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
@@ -714,53 +757,110 @@ const useHint = () => {
     }
 };
 
-// === GAME CONTROLS ===
+// === RESET GAME (PERBAIKAN) ===
 const resetGame = () => {
-    if (isPaused) {
-        togglePause();
-    }
+    // Stop timer terlebih dahulu
+    stopTimer();
     
-    for (let i = 0; i < 9; i++) {
-        for (let j = 0; j < 9; j++) {
-            const cells = document.querySelectorAll('.cell');
-            const index = i * 9 + j;
-            const cell = cells[index];
-            
-            if (!cell.classList.contains('fixed')) {
-                grid[i][j] = 0;
-            }
+    // Unpause jika sedang pause
+    if (isPaused) {
+        isPaused = false;
+        const pauseOverlay = document.getElementById('pauseOverlay');
+        if (pauseOverlay) {
+            pauseOverlay.classList.remove('show');
         }
     }
+    
+    // Reset grid ke kondisi awal (hanya hapus isian user)
+    for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+            // Cek apakah cell ini adalah cell fixed original
+            // Dengan membandingkan dengan solution yang sudah ada sejak awal
+            const isOriginalFixed = (solution[i][j] === grid[i][j]) && grid[i][j] !== 0;
+            
+            // Jika bukan original fixed, reset ke 0
+            if (!isOriginalFixed) {
+                // Regenerate grid dari solution
+                const cellsToRemove = difficultySettings[difficulty];
+                let tempGrid = Array(9).fill().map(() => Array(9).fill(0));
+                
+                // Copy solution
+                for (let x = 0; x < 9; x++) {
+                    for (let y = 0; y < 9; y++) {
+                        tempGrid[x][y] = solution[x][y];
+                    }
+                }
+                
+                // Remove cells dengan pola yang sama seperti generate
+                let removed = 0;
+                const removeIndices = [];
+                while (removed < cellsToRemove) {
+                    const rRow = Math.floor(Math.random() * 9);
+                    const rCol = Math.floor(Math.random() * 9);
+                    const key = `${rRow}-${rCol}`;
+                    if (!removeIndices.includes(key) && tempGrid[rRow][rCol] !== 0) {
+                        removeIndices.push(key);
+                        tempGrid[rRow][rCol] = 0;
+                        removed++;
+                    }
+                }
+                
+                grid = tempGrid;
+                break;
+            }
+        }
+        if (i < 9) break;
+    }
 
+    // Reset variables
     cellNotes = {};
     errors = 0;
     timer = 0;
     hints = 3;
     gameStarted = false;
+    selectedCell = null;
 
+    // Update displays
     updateErrorsDisplay();
     updateTimerDisplay();
     updateHintsDisplay();
+    
+    // Update pause button icon
+    document.querySelectorAll('#pauseBtn, #mobilePauseBtn').forEach(btn => {
+        btn.textContent = '⏸️';
+    });
 
+    // Re-render grid
     renderGrid();
+    
+    // Start timer
     startTimer();
 };
 
+// === NEW GAME ===
 const newGame = (incrementStats = true) => {
-    if (isPaused) {
-        togglePause();
-    }
-    
+    // Stop timer
     stopTimer();
+    
+    // Unpause jika sedang pause
+    if (isPaused) {
+        isPaused = false;
+        const pauseOverlay = document.getElementById('pauseOverlay');
+        if (pauseOverlay) {
+            pauseOverlay.classList.remove('show');
+        }
+    }
     
     if (incrementStats) {
         stats.gamesPlayed++;
         saveStats();
     }
 
+    // Generate puzzle baru
     generateSudoku();
     renderGrid();
 
+    // Reset semua state
     cellNotes = {};
     selectedCell = null;
     errors = 0;
@@ -768,14 +868,17 @@ const newGame = (incrementStats = true) => {
     timer = 0;
     gameStarted = false;
 
+    // Update displays
     updateErrorsDisplay();
     updateTimerDisplay();
     updateHintsDisplay();
     
+    // Update pause button
     document.querySelectorAll('#pauseBtn, #mobilePauseBtn').forEach(btn => {
         btn.textContent = '⏸️';
     });
 
+    // Start timer
     startTimer();
 };
 
@@ -854,11 +957,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('eraserBtn')?.addEventListener('click', toggleEraser);
     document.getElementById('mobileEraserBtn')?.addEventListener('click', toggleEraser);
 
-    // Reset and hint - HANYA UNTUK DESKTOP
+    // Reset and hint
     document.getElementById('desktopResetBtn')?.addEventListener('click', resetGame);
     document.getElementById('desktopHintBtn')?.addEventListener('click', useHint);
-
-    // Mobile controls
     document.getElementById('mobileResetBtn')?.addEventListener('click', resetGame);
     document.getElementById('mobileHintBtn')?.addEventListener('click', useHint);
 
@@ -866,16 +967,17 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('resetStatsBtn')?.addEventListener('click', resetStats);
     document.getElementById('resetStatsBtnMobile')?.addEventListener('click', resetStats);
 
-    // Difficulty
+    // Difficulty - Desktop
     document.querySelectorAll('.diff-btn').forEach(btn => {
         btn.addEventListener('click', () => changeDifficulty(btn.dataset.difficulty));
     });
 
+    // Difficulty - Mobile
     document.getElementById('mobileDifficultySelect')?.addEventListener('change', (e) => {
         changeDifficulty(e.target.value);
     });
 
-    // Number buttons
+    // Number buttons - Desktop & Mobile
     document.querySelectorAll('.num-btn, .numpad-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const num = parseInt(btn.dataset.number);
@@ -929,6 +1031,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize game
     loadStats();
     updateNotesDisplay();
-    updateBackgroundTheme(difficulty); // Set initial background theme
+    updateCultureTheme(difficulty); // Set initial theme
     newGame(false);
+    
+    console.log('🎮 Sudoku Nusantara berhasil dimuat!');
+    console.log('🇮🇩 Selamat bermain dan lestarikan budaya Indonesia!');
 });
