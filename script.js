@@ -74,12 +74,43 @@ const cultureData = {
     }
 };
 
+// === UPDATE ORNAMENT VISIBILITY ===
+const updateOrnamentVisibility = (theme) => {
+    console.log(`🎨 Mengupdate visibilitas ornamen untuk tema: ${theme}`);
+    
+    // Sembunyikan semua ornamen terlebih dahulu
+    const allOrnaments = document.querySelectorAll('[class*="ornament-"]');
+    allOrnaments.forEach(ornament => {
+        ornament.style.display = 'none';
+    });
+    
+    // Tampilkan ornamen yang sesuai dengan tema
+    const activeOrnaments = document.querySelectorAll(`.ornament-${theme}`);
+    activeOrnaments.forEach(ornament => {
+        ornament.style.display = 'block';
+        console.log(`✅ Menampilkan ornamen: ${ornament.className}`);
+    });
+    
+    console.log(`🎨 Menampilkan ornamen ${theme}, ditemukan: ${activeOrnaments.length} elemen`);
+};
+
+// === INITIALIZE ORNAMENTS ===
+const initializeOrnaments = () => {
+    console.log('🎨 Menginisialisasi ornamen...');
+    updateOrnamentVisibility(difficulty);
+};
+
 // === THEME CHANGER ===
 const updateCultureTheme = (theme) => {
+    console.log(`🔄 Mengubah tema ke: ${theme}`);
+    
     // Update body class
     document.body.className = document.body.className
         .replace(/theme-\w+/g, '')
+        .replace(/dark/g, '')
         .trim();
+    
+    // Tambahkan tema baru
     document.body.classList.add(`theme-${theme}`);
     
     // Update grid class
@@ -98,6 +129,9 @@ const updateCultureTheme = (theme) => {
     if (cultureIconEl) cultureIconEl.textContent = culture.icon;
     if (cultureNameEl) cultureNameEl.textContent = culture.name;
     if (cultureDescEl) cultureDescEl.textContent = culture.desc;
+    
+    // Update ornament visibility
+    updateOrnamentVisibility(theme);
 };
 
 // === MOBILE MENU ===
@@ -757,7 +791,7 @@ const useHint = () => {
     }
 };
 
-// === RESET GAME (PERBAIKAN) ===
+// === RESET GAME ===
 const resetGame = () => {
     // Stop timer terlebih dahulu
     stopTimer();
@@ -771,27 +805,21 @@ const resetGame = () => {
         }
     }
     
-    // Reset grid ke kondisi awal (hanya hapus isian user)
+    // Reset grid ke kondisi awal
     for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
-            // Cek apakah cell ini adalah cell fixed original
-            // Dengan membandingkan dengan solution yang sudah ada sejak awal
             const isOriginalFixed = (solution[i][j] === grid[i][j]) && grid[i][j] !== 0;
             
-            // Jika bukan original fixed, reset ke 0
             if (!isOriginalFixed) {
-                // Regenerate grid dari solution
                 const cellsToRemove = difficultySettings[difficulty];
                 let tempGrid = Array(9).fill().map(() => Array(9).fill(0));
                 
-                // Copy solution
                 for (let x = 0; x < 9; x++) {
                     for (let y = 0; y < 9; y++) {
                         tempGrid[x][y] = solution[x][y];
                     }
                 }
                 
-                // Remove cells dengan pola yang sama seperti generate
                 let removed = 0;
                 const removeIndices = [];
                 while (removed < cellsToRemove) {
@@ -914,6 +942,7 @@ document.addEventListener('keydown', (e) => {
 
 // === EVENT LISTENERS ===
 document.addEventListener('DOMContentLoaded', () => {
+    
     // Mobile menu
     const menuToggle = document.getElementById('menuToggle');
     const closeSidebarBtn = document.getElementById('closeSidebar');
@@ -1032,6 +1061,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadStats();
     updateNotesDisplay();
     updateCultureTheme(difficulty); // Set initial theme
+    initializeOrnaments(); // Inisialisasi ornamen
     newGame(false);
     
     console.log('🎮 Sudoku Nusantara berhasil dimuat!');

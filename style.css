@@ -39,6 +39,7 @@ body.theme-jawa {
     --grid-primary: #654321;
     --grid-secondary: #8B6914;
     --cell-fixed: #8B6914;
+    --cell-bg: #FFF8DC;
     background: var(--bg-gradient);
 }
 
@@ -54,6 +55,7 @@ body.theme-bali {
     --grid-primary: #B8860B;
     --grid-secondary: #DAA520;
     --cell-fixed: #DAA520;
+    --cell-bg: #FFF4E6;
     background: var(--bg-gradient);
 }
 
@@ -69,6 +71,7 @@ body.theme-betawi {
     --grid-primary: #DC143C;
     --grid-secondary: #FF6347;
     --cell-fixed: #FF6347;
+    --cell-bg: #FFF0F0;
     background: var(--bg-gradient);
 }
 
@@ -79,12 +82,13 @@ body.theme-minang {
     --primary-color: #B22222;
     --secondary-color: #8B0000;
     --accent-color: #FFD700;
-    --bg-gradient: linear-gradient(135deg, #8B0000 0%, #B22222 50%, #DC143C 100%);
-    --ornament-color: #FFD700;
+    --bg-gradient: linear-gradient(135deg, #FFEFD5 0%, #FFDAB9 50%, #FFA07A 100%);
+    --ornament-color: #B22222;
     --grid-primary: #B22222;
     --grid-secondary: #8B0000;
     --cell-fixed: #DC143C;
-    --text-dark: #FFFFFF;
+    --cell-bg: #FFEFD5;
+    --text-dark: #2D3748;
     background: var(--bg-gradient);
 }
 
@@ -95,12 +99,13 @@ body.theme-toraja {
     --primary-color: #8B4513;
     --secondary-color: #A0522D;
     --accent-color: #CD853F;
-    --bg-gradient: linear-gradient(135deg, #2C1810 0%, #4A2511 50%, #6B3410 100%);
-    --ornament-color: #FFD700;
+    --bg-gradient: linear-gradient(135deg, #FFF5EE 0%, #FFE4C4 50%, #DEB887 100%);
+    --ornament-color: #8B4513;
     --grid-primary: #8B4513;
     --grid-secondary: #A0522D;
     --cell-fixed: #CD853F;
-    --text-dark: #FFFFFF;
+    --cell-bg: #FFF5EE;
+    --text-dark: #2D3748;
     background: var(--bg-gradient);
 }
 
@@ -111,12 +116,13 @@ body.theme-papua {
     --primary-color: #000000;
     --secondary-color: #8B0000;
     --accent-color: #FFD700;
-    --bg-gradient: linear-gradient(135deg, #1a1a1a 0%, #2F4F2F 50%, #556B2F 100%);
-    --ornament-color: #FFD700;
+    --bg-gradient: linear-gradient(135deg, #F5F5DC 0%, #F0FFF0 50%, #E6E6FA 100%);
+    --ornament-color: #000000;
     --grid-primary: #000000;
     --grid-secondary: #8B0000;
     --cell-fixed: #8B0000;
-    --text-dark: #FFFFFF;
+    --cell-bg: #F5F5DC;
+    --text-dark: #2D3748;
     background: var(--bg-gradient);
 }
 
@@ -204,12 +210,42 @@ body.dark .footer-small {
     color: #CBD5E0;
 }
 
-body.dark.theme-jawa { background: linear-gradient(135deg, #1a1410 0%, #2d241e 50%, #3d3020 100%) !important; }
-body.dark.theme-bali { background: linear-gradient(135deg, #2a2410 0%, #3d3617 50%, #4d4420 100%) !important; }
-body.dark.theme-betawi { background: linear-gradient(135deg, #2a0a0a 0%, #3d1515 50%, #4d2020 100%) !important; }
-body.dark.theme-minang { background: linear-gradient(135deg, #2a0505 0%, #3d0a0a 50%, #4d1010 100%) !important; }
-body.dark.theme-toraja { background: linear-gradient(135deg, #1a0f05 0%, #2d1a0a 50%, #3d2510 100%) !important; }
-body.dark.theme-papua { background: linear-gradient(135deg, #0a0a0a 0%, #1a1a15 50%, #2a2a20 100%) !important; }
+/* Background untuk mode malam */
+body.dark.theme-jawa { 
+    background: linear-gradient(135deg, #1a1410 0%, #2d241e 50%, #3d3020 100%) !important; 
+    --cell-bg: #2d241e;
+    --text-dark: #E2E8F0;
+}
+
+body.dark.theme-bali { 
+    background: linear-gradient(135deg, #2a2410 0%, #3d3617 50%, #4d4420 100%) !important; 
+    --cell-bg: #3d3617;
+    --text-dark: #E2E8F0;
+}
+
+body.dark.theme-betawi { 
+    background: linear-gradient(135deg, #2a0a0a 0%, #3d1515 50%, #4d2020 100%) !important; 
+    --cell-bg: #3d1515;
+    --text-dark: #E2E8F0;
+}
+
+body.dark.theme-minang { 
+    background: linear-gradient(135deg, #2a0505 0%, #3d0a0a 50%, #4d1010 100%) !important; 
+    --cell-bg: #3d0a0a;
+    --text-dark: #E2E8F0;
+}
+
+body.dark.theme-toraja { 
+    background: linear-gradient(135deg, #1a0f05 0%, #2d1a0a 50%, #3d2510 100%) !important; 
+    --cell-bg: #2d1a0a;
+    --text-dark: #E2E8F0;
+}
+
+body.dark.theme-papua { 
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a15 50%, #2a2a20 100%) !important; 
+    --cell-bg: #1a1a15;
+    --text-dark: #E2E8F0;
+}
 
 /* ===========================================
    BASE STYLES
